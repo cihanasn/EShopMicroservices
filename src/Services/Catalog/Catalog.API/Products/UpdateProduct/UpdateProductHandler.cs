@@ -16,12 +16,11 @@
             RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
         }
     }
-    internal class UpdateProductHandler(IDocumentSession session, ILogger<UpdateProductHandler> logger)
+    internal class UpdateProductHandler(IDocumentSession session)
         : ICommandHandler<UpdateProductCommand, UpdateProductResult>
     {
         public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            logger.LogInformation("UpdateProductHandler.Handle called with {@Command}", command);
             var product = await session.LoadAsync<Product>(command.Id, cancellationToken);
             if(product is null) 
             {

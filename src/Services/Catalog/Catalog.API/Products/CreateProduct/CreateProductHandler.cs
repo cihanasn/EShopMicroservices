@@ -14,7 +14,7 @@
             RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
         }
     }
-    internal class CreateProductCommandHandler(IDocumentSession session, ILogger<CreateProductCommandHandler> logger) 
+    internal class CreateProductCommandHandler(IDocumentSession session) 
         : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
@@ -25,7 +25,6 @@
             //save to database
             //return CreateProductResult result
 
-            logger.LogInformation("CreateProductCommandHandler.Handle called with {@Command}", command);
 
             var product = new Product
             {
